@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projetfinal/whitetext.dart';
 
 import 'models.dart';
 
@@ -11,6 +13,7 @@ class _ConnexionPageState extends State<ConnexionPage> {
   final TextEditingController _nomUtilisateurController = TextEditingController();
   final TextEditingController _motDePasseController = TextEditingController();
   final DatabaseManager _dbManager = DatabaseManager();
+  final ButtonStyle style = ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20),backgroundColor: Colors.blue);
 
   Future<void> _connecter() async {
     final nomUtilisateur = _nomUtilisateurController.text;
@@ -41,33 +44,44 @@ class _ConnexionPageState extends State<ConnexionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Connexion'),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+        title: const WhiteText('Connexion'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _nomUtilisateurController,
-              decoration: InputDecoration(labelText: 'Nom d\'utilisateur'),
-            ),
-            TextField(
-              controller: _motDePasseController,
-              decoration: InputDecoration(labelText: 'Mot de passe'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _connecter,
-              child: Text('Se connecter'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/inscription');
-              },
-              child: Text('S\'inscrire'),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                  child: Image.asset('asset/images/img1.jpg',height: 200,)
+              ),
+        
+              TextField(
+                controller: _nomUtilisateurController,
+                decoration: const InputDecoration(labelText: 'Nom d\'utilisateur'),
+              ),
+              TextField(
+                controller: _motDePasseController,
+                decoration: const InputDecoration(labelText: 'Mot de passe'),
+                obscureText: true,
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: style,
+                onPressed: _connecter,
+                child: const WhiteText('Se connecter'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/inscription');
+                },
+                child: const Text('S\'inscrire'),
+              ),
+            ],
+          ),
         ),
       ),
     );

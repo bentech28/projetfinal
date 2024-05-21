@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projetfinal/whitetext.dart';
 
 import 'models.dart';
 
@@ -52,17 +53,17 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Modifier la note'),
+          title: const Text('Modifier la note'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: _titreController,
-                decoration: InputDecoration(labelText: 'Titre'),
+                decoration: const InputDecoration(labelText: 'Titre'),
               ),
               TextField(
                 controller: _contenuController,
-                decoration: InputDecoration(labelText: 'Contenu'),
+                decoration: const InputDecoration(labelText: 'Contenu'),
               ),
             ],
           ),
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                 _contenuController.clear();
                 Navigator.of(context).pop();
               },
-              child: Text('Enregistrer'),
+              child: const Text('Enregistrer'),
             ),
           ],
         );
@@ -100,8 +101,8 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Supprimer la note'),
-          content: Text('Voulez-vous vraiment supprimer cette note ?'),
+          title: const Text('Supprimer la note'),
+          content: const Text('Voulez-vous vraiment supprimer cette note ?'),
           actions: [
             TextButton(
               onPressed: () async {
@@ -111,13 +112,13 @@ class _HomePageState extends State<HomePage> {
                 });
                 Navigator.of(context).pop();
               },
-              child: Text('Supprimer'),
+              child: const Text('Supprimer'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Annuler'),
+              child: const Text('Annuler'),
             ),
           ],
         );
@@ -129,23 +130,26 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Accueil'),
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+        title: const WhiteText('To do List'),
       ),
       body: FutureBuilder<List<Note>>(
         future: _notesFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Erreur : ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Aucune note disponible'));
+            return const Center(child: Text('Aucune note disponible'));
           } else {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 final note = snapshot.data![index];
                 return Card(
+                  elevation: 3,
                   child: ListTile(
                     title: Text(note.titre),
                     subtitle: Text(note.contenu),
@@ -153,13 +157,13 @@ class _HomePageState extends State<HomePage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          icon: Icon(Icons.edit),
+                          icon: const Icon(Icons.edit,color: Colors.blue,),
                           onPressed: () {
                             _updateNote(note);
                           },
                         ),
                         IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(Icons.delete,color: Colors.red,),
                           onPressed: () {
                             _deleteNoteConfirm(note.id!);
                           },
@@ -174,22 +178,23 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
         onPressed: () {
           showDialog(
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text('Ajouter une note'),
+                title: const Text('Ajouter une note'),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
                       controller: _titreController,
-                      decoration: InputDecoration(labelText: 'Titre'),
+                      decoration: const InputDecoration(labelText: 'Titre'),
                     ),
                     TextField(
                       controller: _contenuController,
-                      decoration: InputDecoration(labelText: 'Contenu'),
+                      decoration: const InputDecoration(labelText: 'Contenu'),
                     ),
                   ],
                 ),
@@ -198,14 +203,14 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () async {
                       await _addNote();
                     },
-                    child: Text('Ajouter'),
+                    child: const Text('Ajouter'),
                   ),
                 ],
               );
             },
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

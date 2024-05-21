@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:projetfinal/whitetext.dart';
 
 import 'models.dart';
 
@@ -13,6 +14,7 @@ class _InscriptionPageState extends State<InscriptionPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _motDePasseController = TextEditingController();
   final DatabaseManager _dbManager = DatabaseManager();
+  final ButtonStyle style = ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20),backgroundColor: Colors.blue);
 
   Future<void> _inscrire() async {
     final nomUtilisateur = _nomUtilisateurController.text;
@@ -51,31 +53,43 @@ class _InscriptionPageState extends State<InscriptionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inscription'),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+        title: const WhiteText('Inscription'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _nomUtilisateurController,
-              decoration: InputDecoration(labelText: 'Nom d\'utilisateur'),
-            ),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: _motDePasseController,
-              decoration: InputDecoration(labelText: 'Mot de passe'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _inscrire,
-              child: Text('S\'inscrire'),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset('asset/images/img1.jpg',height: 200,)
+              ),
+              
+              TextField(
+                controller: _nomUtilisateurController,
+                decoration: InputDecoration(labelText: 'Nom d\'utilisateur'),
+              ),
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(labelText: 'Email'),
+              ),
+              TextField(
+                controller: _motDePasseController,
+                decoration: InputDecoration(labelText: 'Mot de passe'),
+                obscureText: true,
+              ),
+              SizedBox(height: 20),
+        
+              ElevatedButton(
+                onPressed: _inscrire,
+                style: style,
+                child: const WhiteText('S\'inscrire'),
+        
+              ),
+            ],
+          ),
         ),
       ),
     );
