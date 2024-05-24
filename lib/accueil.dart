@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         centerTitle: true,
-        title: const WhiteText('To do List'), // Titre de l'AppBar avec texte blanc
+        title: const WhiteText('To do List'),
       ),
       body: FutureBuilder<List<Note>>(
         future: _notesFuture,
