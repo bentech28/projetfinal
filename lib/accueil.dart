@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projetfinal/whitetext.dart'; // Importation d'un widget personnalisé pour le texte blanc
+import 'package:projetfinal/whitetext.dart';
 
 import 'models.dart'; // Importation des modèles, incluant probablement le DatabaseManager et les classes de données
 
